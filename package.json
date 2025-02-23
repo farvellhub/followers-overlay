@@ -1,0 +1,17 @@
+{
+  "name": "followers-app",
+  "version": "1.0.0",
+  "description": "Aplicación para obtener seguidores de Twitch",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node-fetch": "^2.7.0",
+    "socket.io": "^4.8.1"
+  }
+}

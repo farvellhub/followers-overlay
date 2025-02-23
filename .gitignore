@@ -1,0 +1,46 @@
+node_modules/
+.env
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+logs/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Directorios de dependencias y compilación
+node_modules/
+dist/
+build/
+
+# Archivos del sistema
+Thumbs.db
+.DS_Store
+
+# Configuración del entorno
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Archivos de caché
+.cache/
+temp/
+
+# IDEs y editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Otros
+coverage/
+.nyc_output/

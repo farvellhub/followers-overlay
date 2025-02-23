@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión con Twitch</title>
+</head>
+
+<body>
+    <script>
+        const CLIENT_ID = 'ug7quokyqa4a0vol1hmwclteld83x4';
+        const CALLBACK = 'http://localhost:3000/auth/callback';
+        const SCOPE = 'moderator:read:followers';
+
+        // Cuando carga la página hacemos la peticion OAuth a la API de Twitch
+        window.onload = function () {
+            const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(CALLBACK)}&scope=${encodeURIComponent(SCOPE)}`;
+            window.location.href = authUrl;
+        };
+    </script>
+
+</body>
+
+</html>
