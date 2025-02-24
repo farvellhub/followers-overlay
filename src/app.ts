@@ -1,14 +1,14 @@
-import express from 'express';
-import path from 'path';
+import express, { Application } from 'express';
+import path from 'node:path';
 import cookieParser from 'cookie-parser';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 // Importar rutas
 import authRoutes from './routes/auth.routes.js';
 import followersRoutes from './routes/followers.routes.js';
 
 // Arranca express
-const app = express();
+const app: Application = express();
 
 // Ruta absoluta al directorio de origen
 const __filename = fileURLToPath(import.meta.url);

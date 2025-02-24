@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 
-const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_ID: string = process.env.CLIENT_ID as string;
 
-const getBroadcasterId = async (access_token) => {
+const getBroadcasterId = async (access_token: string): Promise<string | null> => {
     const response = await fetch('https://api.twitch.tv/helix/users', {
         headers: {
             'Authorization': `Bearer ${access_token}`,

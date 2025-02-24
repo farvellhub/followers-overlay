@@ -1,13 +1,14 @@
-import getBroadcasterId from "./broadcster.service.js";
+import { Response, CookieOptions } from 'express';
+import getBroadcasterId from './broadcaster.service.js';
 
 // Variable global para guardar tokens
-export let tokens = null;
+export let tokens: any = null;
 
-const setCookies = async (res, access_token, refresh_token) => {
-    const cookieOptions = {
+const setCookies = async (res: Response, access_token: string, refresh_token: string): Promise<void> => {
+    const cookieOptions: CookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Solo en producción
-        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         path: '/'
     };
 
