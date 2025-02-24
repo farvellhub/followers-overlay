@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback Twitch</title>
+</head>
+
+<body>
+    <script>
+        // Obtener el código de autorización de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const authorizationCode = urlParams.get('code');
+
+        if (authorizationCode) {
+            // Hacer una solicitud al servidor para intercambiar el código por los tokens y establecer las cookies
+            fetch('/auth/callback', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: authorizationCode })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al obtener los tokens de Twitch');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            // Si no se recibe el código, mostramos un error
+            alert('Código de autorización no recibido');
+        }
+    </script>
+</body>
+
+</html>
