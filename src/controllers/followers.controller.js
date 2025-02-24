@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { tokens } from '../services/cookies.service.js';
 
 const CLIENT_ID = process.env.CLIENT_ID;
 
@@ -22,7 +23,11 @@ const getInfoFollowers = async (data, accessToken) => {
 }
 
 const getFollowers = async (req, res) => {
-    const { accessToken, broadcasterId } = req.cookies;
+    if (!tokens || !tokens.accessToken) {
+        return res.status(400).json({ error: 'El servidor no está autenticado con Twitch' });
+    }
+
+    const { accessToken, broadcasterId } = tokens || req.cookies;
     if (!accessToken || !broadcasterId)
         return res.status(400).json({ error: 'Tokens no encontrados' });
 
