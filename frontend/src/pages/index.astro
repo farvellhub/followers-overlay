@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+const CLIENT_ID = "ug7quokyqa4a0vol1hmwclteld83x4";
+const CALLBACK = "http://localhost:3000/auth/callback";
+const SCOPE = "moderator:read:followers";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(CALLBACK)}&scope=${encodeURIComponent(SCOPE)}`;
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Iniciar sesión con Twitch</title>
+	</head>
+
+	<body data-auth-url={authUrl}>
+		<script>
+			window.onload = function () {
+				const authUrl = document.body.getAttribute("data-auth-url");
+				if (authUrl) {
+					window.location.href = authUrl;
+				}
+			};
+		</script>
+	</body>
+</html>

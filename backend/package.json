@@ -1,15 +1,14 @@
 {
-  "name": "followers-app",
-  "version": "1.0.0",
-  "description": "Aplicación para obtener seguidores de Twitch",
+  "name": "followers-backend",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node --loader ts-node/esm ./src/server.ts",
+    "dev": "nodemon ./src/server.ts",
     "build": "tsc"
   },
   "dependencies": {
-    "cookie-parser": "^1.4.7",
+    "cookie-parser": "1.4.7",
     "dotenv": "16.4.7",
     "express": "4.21.2",
     "node-fetch": "2.7.0",
@@ -21,6 +20,7 @@
     "@types/node": "^22.13.5",
     "@types/node-fetch": "^2.6.12",
     "@types/socket.io": "^3.0.2",
+    "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }

@@ -1,0 +1,101 @@
+---
+import { createSignal, onMount } from "solid-js";
+import Layout from "../layouts/Layout.astro";
+
+const [followers, setFollowers] = createSignal([]);
+declare type Follower = {
+    profile_image: string;
+    name: string;
+};
+const getFollowers = async () => {
+    try {
+        const response = await fetch("/api/followers");
+        if (!response.ok) throw new Error("Error al obtener seguidores");
+
+        const data = await response.json();
+        setFollowers(data);
+    } catch (error) {
+        console.error("Error obteniendo seguidores:", error);
+    }
+};
+
+onMount(() => {
+    getFollowers();
+    setInterval(getFollowers, 30000);
+});
+---
+
+<head>
+    <title>Seguidores de Twitch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background: transparent;
+            width: 1920px;
+            height: 1080px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #followers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1800px;
+            height: 90%;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+        }
+        .follower {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.5s ease-out forwards;
+        }
+        .follower img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <Layout>
+        <div id="followers">
+            {
+                followers().map((follower: Follower) => (
+                    <div class="follower">
+                        <img src={follower.profile_image} alt={follower.name} />
+                        <p>
+                            <strong>{follower.name}</strong>
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+    </Layout>
+</body>
