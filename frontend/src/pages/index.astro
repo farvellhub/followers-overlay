@@ -1,11 +1,3 @@
----
-const CLIENT_ID = "ug7quokyqa4a0vol1hmwclteld83x4";
-const CALLBACK = "http://localhost:3000/auth/callback";
-const SCOPE = "moderator:read:followers";
-
-const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(CALLBACK)}&scope=${encodeURIComponent(SCOPE)}`;
----
-
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
@@ -13,13 +5,28 @@ const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=code&client
 		<title>Iniciar sesión con Twitch</title>
 	</head>
 
-	<body data-auth-url={authUrl}>
+	<body>
 		<script>
+			import getAuthUrl from "../utils/auth";
+
 			window.onload = function () {
-				const authUrl = document.body.getAttribute("data-auth-url");
-				if (authUrl) {
-					window.location.href = authUrl;
-				}
+				fetch("/config")
+					.then((response) => response.json())
+					.then(({ clientId, callback }) => {
+						if (!clientId || !callback) {
+							throw new Error(
+								"Error al conseguir la configuración del servidor.",
+							);
+						}
+						const authUrl = getAuthUrl(clientId, callback);
+						window.location.href = authUrl;
+					})
+					.catch((error) =>
+						console.error(
+							"Error en la carga de configuración:",
+							error,
+						),
+					);
 			};
 		</script>
 	</body>

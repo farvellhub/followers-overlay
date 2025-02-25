@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import path from 'node:path';
 import cookieParser from 'cookie-parser';
 import { fileURLToPath } from 'node:url';
@@ -23,7 +23,16 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/api', followersRoutes);
 
+// Ruta de configuración
+app.get('/config', (req: Request, res: Response) => {
+    res.json({
+        clientId: process.env.CLIENT_ID,
+        callback: process.env.CALLBACK
+    });
+});
+
 // Devolvemos overlay
-app.get('/followers', (req, res) => res.sendFile(path.join(__dirname, '../public/followers.html')));
+app.get('/followers', (req: Request, res: Response) =>
+    res.sendFile(path.join(__dirname, '../public/followers.html')));
 
 export default app;

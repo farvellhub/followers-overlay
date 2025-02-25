@@ -10,11 +10,8 @@
     "start:backend": "cd backend && npm run start",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && npm run dev",
-    "dev": "npm run build:frontend && npm run start:backend",
+    "dev": "npm run build:frontend && npm run dev:backend",
     "start": "npm run build && npm run start:backend"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
   },
   "keywords": [],
   "author": "Farvell",

@@ -1,7 +1,3 @@
----
-/* No necesitas importar nada para ejecutar el código en el cliente */
----
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -34,7 +30,7 @@
                 });
         } else {
             // Si no se recibe el código, mostramos un error
-            alert('Código de autorización no recibido');
+            throw new Error('Código de autorización no recibido');
         }
     </script>
 </body>

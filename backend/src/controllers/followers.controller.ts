@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import { tokens } from '../services/cookies.service.js';
+import config from '../../config.js';
+
 
 const CLIENT_ID: string = process.env.CLIENT_ID as string;
 
@@ -37,7 +39,7 @@ const getFollowers = async (req: Request, res: Response): Promise<void> => {
     }
 
     try {
-        const followersUrl = `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${broadcasterId}&first=30`;
+        const followersUrl = `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${broadcasterId}&first=${config.NUM_FOLLOWERS}`;
         const response = await fetch(followersUrl, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

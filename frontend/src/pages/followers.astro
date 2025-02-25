@@ -1,101 +1,60 @@
 ---
-import { createSignal, onMount } from "solid-js";
-import Layout from "../layouts/Layout.astro";
-
-const [followers, setFollowers] = createSignal([]);
-declare type Follower = {
+export declare type Follower = {
     profile_image: string;
     name: string;
 };
-const getFollowers = async () => {
-    try {
-        const response = await fetch("/api/followers");
-        if (!response.ok) throw new Error("Error al obtener seguidores");
-
-        const data = await response.json();
-        setFollowers(data);
-    } catch (error) {
-        console.error("Error obteniendo seguidores:", error);
-    }
-};
-
-onMount(() => {
-    getFollowers();
-    setInterval(getFollowers, 30000);
-});
 ---
 
-<head>
-    <title>Seguidores de Twitch</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            background: transparent;
-            width: 1920px;
-            height: 1080px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #followers {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            width: 90%;
-            max-width: 1800px;
-            height: 90%;
-            padding: 20px;
-            overflow-y: auto;
-            position: relative;
-        }
-        .follower {
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transform: scale(0.9);
-            animation: fadeInScale 0.5s ease-out forwards;
-        }
-        .follower img {
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-    </style>
-</head>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Seguidores de Twitch</title>
+        <!-- <link rel="stylesheet" href="../styles/global.css" /> -->
+        <style is:global>
+            @import url("../styles/global.css");
+        </style>
+    </head>
+    <body>
+        <div id="followers"></div>
 
-<body>
-    <Layout>
-        <div id="followers">
-            {
-                followers().map((follower: Follower) => (
-                    <div class="follower">
-                        <img src={follower.profile_image} alt={follower.name} />
-                        <p>
-                            <strong>{follower.name}</strong>
-                        </p>
-                    </div>
-                ))
+        <script>
+            import config from "../../../backend/config";
+            import type { Follower } from "./followers.astro";
+
+            async function getFollowers() {
+                try {
+                    const response = await fetch("/api/followers");
+                    if (!response.ok)
+                        throw new Error("Error al obtener seguidores");
+
+                    const followers = await response.json();
+                    renderFollowers(followers);
+                } catch (error) {
+                    console.error("Error obteniendo seguidores:", error);
+                }
             }
-        </div>
-    </Layout>
-</body>
+
+            function renderFollowers(followers: Array<Follower>) {
+                const container: HTMLElement = document.getElementById(
+                    "followers",
+                ) as HTMLElement;
+                container.innerHTML = ""; // Limpiar contenido anterior
+
+                followers.forEach((follower: Follower) => {
+                    const div = document.createElement("div");
+                    div.className = "follower";
+                    div.innerHTML = `
+                    <img src="${follower.profile_image}" alt="${follower.name}" />
+                    <p><strong>${follower.name}</strong></p>
+                `;
+                    container.appendChild(div);
+                });
+            }
+
+            // Ejecutar la función al cargar la página y actualizar
+            getFollowers();
+            setInterval(getFollowers, config.TIME_UPDATE);
+        </script>
+    </body>
+</html>
