@@ -12,11 +12,12 @@ export declare type Follower = {
         <title>Seguidores de Twitch</title>
         <!-- <link rel="stylesheet" href="../styles/global.css" /> -->
         <style is:global>
-            @import url("../styles/global.css");
+            /* @import url("../styles/global.css"); */
+            @import url("../styles/star-wars.css");
         </style>
     </head>
     <body>
-        <div id="followers"></div>
+        <div id="followers"><h1>Special thanks to my most recent followers!!</h1></div>
 
         <script>
             import config from "../../../backend/config";
@@ -39,7 +40,7 @@ export declare type Follower = {
                 const container: HTMLElement = document.getElementById(
                     "followers",
                 ) as HTMLElement;
-                container.innerHTML = ""; // Limpiar contenido anterior
+                // container.innerHTML = ""; // Limpiar contenido anterior
 
                 followers.forEach((follower: Follower) => {
                     const div = document.createElement("div");

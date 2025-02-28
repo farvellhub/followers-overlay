@@ -5,7 +5,7 @@ declare type Config = {
 
 // Personalizar variables
 const config: Config = {
-    "TIME_UPDATE": 15000,
+    "TIME_UPDATE": 2400000,
     "NUM_FOLLOWERS": "30"
 }
 

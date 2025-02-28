@@ -1,0 +1,65 @@
+/* Reset y configuración base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: transparent;
+  font-family: 'Arial', sans-serif;
+  perspective: 1000px;
+}
+
+/* Contenedor followers con animación de Star Wars */
+#followers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -100%;
+  animation: starWarsCrawl 15s linear infinite;
+  transform-origin: 50% 100%;
+  transform: rotateX(25deg) translateZ(0);
+  text-align: center;
+}
+
+#followers h1 {
+  color: #f5d207;
+  font-size: 76px;
+}
+
+/* Estilo para cada tarjeta de seguidor */
+.follower {
+  margin: 20px 0;
+}
+
+/* Eliminamos la imágen del flujo */
+.follower img {
+  display: none;
+}
+
+/* Estilo para el nombre del seguidor */
+.follower p {
+  color: #f5d207;
+  font-size: 52px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Animación tipo Star Wars */
+@keyframes starWarsCrawl {
+  0% {
+    transform: rotateX(25deg) translateY(100%) translateZ(0);
+  }
+  100% {
+    transform: rotateX(25deg) translateY(-600%) translateZ(-500px);
+  }
+}

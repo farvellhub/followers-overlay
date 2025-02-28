@@ -1,75 +1,79 @@
 /* Reset y configuración base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  /* Evita que aparezca la barra de scroll */
+  background: transparent;
+  /* Fondo transparente para el overlay */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor de seguidores en formato grid */
+#followers {
+  display: grid;
+  /* Se generan tantas columnas como quepan, con un mínimo de 300px cada una */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Cada fila se ajusta para repartir equitativamente la altura disponible */
+  grid-auto-rows: 1fr;
+  gap: 20px;
+  padding: 50px;
+  /* Espaciado interno para no pegarse a los bordes */
+  width: 100%;
+  height: 100%;
+}
+
+/* Estilo para cada tarjeta de seguidor */
+.follower {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+  animation: fadeInUp 0.5s ease;
+  /* Para evitar que el contenido exceda el tamaño asignado */
+  overflow: hidden;
+}
+
+.follower:hover {
+  transform: scale(1.05);
+}
+
+/* Estilo para la imagen de perfil */
+.follower img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid #fff;
+}
+
+/* Estilo para el nombre del seguidor */
+.follower p {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Animación para la aparición de cada tarjeta */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  html,
-  body {
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden; /* Evita que aparezca la barra de scroll */
-    background: transparent; /* Fondo transparente para el overlay */
-    font-family: 'Arial', sans-serif;
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Contenedor de seguidores en formato grid */
-  #followers {
-    display: grid;
-    /* Se generan tantas columnas como quepan, con un mínimo de 300px cada una */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* Cada fila se ajusta para repartir equitativamente la altura disponible */
-    grid-auto-rows: 1fr;
-    gap: 20px;
-    padding: 50px; /* Espaciado interno para no pegarse a los bordes */
-    width: 100%;
-    height: 100%;
-  }
-  
-  /* Estilo para cada tarjeta de seguidor */
-  .follower {
-    background: rgba(0, 0, 0, 0.6);
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    transition: transform 0.3s ease;
-    animation: fadeInUp 0.5s ease;
-    /* Para evitar que el contenido exceda el tamaño asignado */
-    overflow: hidden;
-  }
-  
-  .follower:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Estilo para la imagen de perfil */
-  .follower img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-    border: 2px solid #fff;
-  }
-  
-  /* Estilo para el nombre del seguidor */
-  .follower p {
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  /* Animación para la aparición de cada tarjeta */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+}
